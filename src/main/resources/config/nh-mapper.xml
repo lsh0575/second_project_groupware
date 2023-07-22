@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.summer.dao.NhDao">
+	<!-- project -->
+	<select id="p_readAll" resultType="ProjectVO" parameterType="java.util.HashMap">  <!-- Project + invitemember -->
+		 select ptitle, psrn , pstate from project 
+		 where pmgrid=#{uid1} or psrn in (select pgsrn from invitemember where uid=#{uid2} and iaccept='수락' and cno=2) order by pregdate desc;
+	</select>
+	
+	<select id="p_readAll_go" resultType="ProjectDateVO">
+		select substr(pstartdate , 6, 5) `startdate` , substr(penddate, 6,5) `enddate` , psrn , ptitle from project;
+	</select>
+	
+	<select id="p_read" resultType="ProjectVO" parameterType="int">
+		select * from project where psrn = #{psrn} 	
+	</select>
+	
+	<insert id="p_insert" parameterType="java.util.HashMap">
+		insert into project (ptitle, pcontent, pstartdate, penddate, pmgrid, pstate ) values ( #{ptitle}, #{pcontent}, #{pstartdate}, #{penddate}, #{pmgrid}, #{pstate} )
+	</insert>
+	
+	<update id="p_update" >
+		update project 
+		<set>
+			<if test="ptitle != null">ptitle=#{ptitle},</if>
+			<if test="pcontent != null"> pcontent=#{pcontent},</if>
+			<if test="pstartdate != null"> pstartdate=#{pstartdate} ,</if>
+			<if test="penddate != null"> penddate=#{penddate}, </if>
+			<if test="pstate != null"> pstate=#{pstate}</if>
+		</set>
+		where psrn=#{psrn} 
+	</update>
+	
+	<!-- task -->
+	<select id="t_readAll" resultType="TaskVO" parameterType="int">   <!-- Task + invitemember -->
+		select * from task where psrn=#{psrn} order by tregdate desc
+	</select>
+	<select id="t_read" resultType="TaskVO" parameterType="int">
+		select * from task where tsrn=#{tsrn}
+	</select>
+	
+ 	<insert id="t_insert" >
+		insert into task (ttitle, tcontent, tmgrid, psrn) values ( #{ttitle}, #{tcontent}, #{tmgrid}, #{psrn} )
+	</insert>
+
+	<update id="t_update">
+		update task set ttitle=#{ttitle}, tcontent=#{tcontent}, tstate=#{tstate} where tsrn=#{tsrn}
+	</update>
+	
+	<!--완료 버튼(기능)  -->
+	<update id="t_update_complete" parameterType="int">
+		update task set tstate='완료' where tsrn =#{tsrn}
+	</update> 
+	
+	<delete id="t_delete" parameterType="int">
+		delete from task where tsrn=#{tsrn}
+	</delete>
+
+	
+	<!--  invitemember 멤버 리스트 불러오기 -->
+	<select id="invitemember_list" resultType="UserVO" parameterType="int">
+		select userid, username, useremail, pgsrn from invitemember join user on uid=userid where pgsrn =${psrn} and iaccept='수락' and cno=2;
+	</select>
+	
+
+	<!-- 초대할 때 멤버 리스트 불러오기 -->
+	<select id="memberlist" resultType="UserVO" parameterType="java.util.HashMap">
+		select username , userid, useremail from user where not ( userid=#{uid}) and userid not in (select uid from invitemember i where iaccept='수락' and pgsrn=#{pgsrn} and cno=2);
+	</select>
+	
+	<!-- 멤버 초대 기능-->
+	<insert id="invite" parameterType="java.util.HashMap">
+		insert into invitemember (pgsrn , uid, cno) values (#{pgsrn}, #{uid}, 2)
+	</insert> 
+	
+	<delete id="deletemember">
+		delete from invitemember where pgsrn=#{pgsrn} and uid=#{uid} and cno=2
+	</delete>
+	
+	<!-- 알림창 띄우기 -->	
+	
+	<select id="alarm_project" resultType="AlarmVO" parameterType="string" >
+		<!-- select distinct i.pgsrn, if(i.cno=2, pmgrid, NULL) `pmgrid`, if(i.cno=2, p.ptitle,NULL) `ptitle` , 
+						if(i.cno=1 and i2.cno=1,  s.groupname , NULL) `sgroupname` ,if(i.cno=1 and i2.cno=1, summer_user_userid, NULL) `summer_user_userid`
+						 ,i.idate , i.cno from (invitemember i join project p on (i.pgsrn=p.psrn)) join (invitemember i2 join sgroup s on ( i2.pgsrn= s.groupno)) 
+						 where i.uid=#{uid} and i.iaccept='진행 중' and i2.iaccept='진행 중' order by idate desc;	 -->
+	
+	<!-- 	SELECT
+		    i.pgsrn,
+		    CASE WHEN i.cno = 2 THEN pmgrid ELSE NULL END AS `pmgrid`,
+		    CASE WHEN i.cno = 2 THEN p.ptitle ELSE NULL END AS `ptitle`,
+		    CASE WHEN i.cno = 1 AND i2.cno = 1 THEN s.groupname ELSE NULL END AS `sgroupname`,
+		    CASE WHEN i.cno = 1 AND i2.cno = 1 THEN summer_user_userid ELSE NULL END AS `summer_user_userid`,
+		    i2.idate,
+		    i.cno
+		FROM
+		    (SELECT DISTINCT pgsrn, cno FROM invitemember WHERE uid = #{uid} AND iaccept = '진행') i
+		JOIN
+		    project p ON i.pgsrn = p.psrn
+		LEFT JOIN
+		    (SELECT DISTINCT pgsrn, cno, idate FROM invitemember WHERE iaccept = '진행') i2 ON i.pgsrn = i2.pgsrn
+		JOIN
+		    sgroup s ON i2.pgsrn = s.groupno
+		ORDER BY
+		    i2.idate DESC -->
+		select pgsrn, idate, cno , ptitle, pmgrid from invitemember join project on pgsrn=psrn where uid=#{uid} and iaccept='진행' and cno=2;
+		
+	</select>
+	
+	<select id="alarm_group" resultType="AlarmVO" parameterType="string" >
+		select pgsrn, idate, cno , groupname, summer_user_userid from invitemember join sgroup on pgsrn=groupno where uid=#{uid} and iaccept='진행' and cno=1;
+	</select>
+	
+	<!-- 알림창에서 수락/거절 -->
+	<update id="accept_invite" parameterType="java.util.HashMap">
+		update invitemember set iaccept='수락' where uid=#{uid} and pgsrn=#{pgsrn} and cno=#{cno}
+	</update>
+	 
+	<update id="refuse_invite" parameterType="java.util.HashMap">
+		update invitemember set iaccept= '거절' where uid=#{uid} and pgsrn=#{pgsrn} and cno=#{cno}
+	</update>
+	
+
+</mapper>

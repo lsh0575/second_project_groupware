@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+	<!-- 혜은 -->
+		<typeAlias type="com.summer.dto.WorkingHour"
+			alias="WorkingHour" />
+		<typeAlias type="com.summer.dto.WorkflowCategory"
+			alias="WorkflowCategory" />
+		<typeAlias type="com.summer.dto.Workflow" alias="Workflow" />
+		<typeAlias type="com.summer.dto.OriginWorkinghour"
+			alias="OriginWorkinghour" />
+		<typeAlias type="com.summer.dto.Dayoff" alias="Dayoff" />
+		<typeAlias type="com.summer.dto.WorkflowDate" alias="WorkflowDate" />
+		<typeAlias type="com.summer.dto.WorkflowName" alias="WorkflowName" />
+		<typeAlias type="com.summer.dto.GroupWorkingHour" alias="GroupWorkingHour" />
+		<typeAlias type="com.summer.dto.GroupUserInfo" alias="GroupUserInfo" />
+		<!-- 혜은 -->
+		
+		<!-- 성현 -->
+		<typeAlias alias="AccountVO" type="com.summer.dto.AccountVO"/>
+		<!-- 성현 -->
+		
+		<!-- 나형 -->
+		<typeAlias alias="ProjectVO" type="com.summer.dto.ProjectVO"/>
+
+		<typeAlias alias="TaskVO" type="com.summer.dto.TaskVO" />
+	<typeAlias alias="InviteMemberVO"
+		type="com.summer.dto.InviteMemberVO" />
+	<typeAlias alias="InviteCategoryVO"
+		type="com.summer.dto.InviteCategoryVO" />
+	<typeAlias alias="UserVO" type="com.summer.dto.UserVO" />
+	<typeAlias alias="AlarmVO" type="com.summer.dto.AlarmVO" />
+	<typeAlias alias="ProjectDateVO"
+		type="com.summer.dto.ProjectDateVO" />
+<!-- 나형 -->
+	</typeAliases>
+</configuration>

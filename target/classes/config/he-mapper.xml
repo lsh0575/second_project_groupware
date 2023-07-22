@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.summer.dao.HeDao">
+	<insert id="whgotimeInsert">
+		insert into
+		workinghour (whdate, whgotime,
+		whleavetime, userid) values
+		(#{whdate},#{whgotime},#{whleavetime},
+		#{userid})
+	</insert>
+
+	<update id="whleavetimeUpdate">
+		update workinghour
+		set whleavetime=#{whleavetime}
+		where userid=#{userid} order by whdate desc limit 1
+	</update>
+
+	<select id="monthlyWorkingHour"
+		parameterType="java.util.HashMap" resultType="WorkingHour">
+		select * from workinghour
+		where userid=#{userid} and whdate &gt;= #{whdate1}
+		and whdate &lt;=
+		#{whdate2} order by whdate;
+	</select>
+
+	<select id="selectWorkingHour" parameterType="WorkingHour"
+		resultType="WorkingHour">
+		select * from workinghour where whdate=#{whdate} and
+		userid=#{userid}
+	</select>
+
+	<insert id="insertWorkFlow">
+		insert into workflow (wfapplystartdate,
+		wfapplyenddate, wfapplystarttime,
+		wfapplyendtime, userid, wfcsrn)
+		values(#{wfapplystartdate}, #{wfapplyenddate}, #{wfapplystarttime},
+		#{wfapplyendtime}, #{userid},
+		#{wfcsrn});
+	</insert>
+	
+	<insert id="insertWorkFlowLeader">
+		insert into workflow (wfstatus, wfapplystartdate,
+		wfapplyenddate, wfapplystarttime,
+		wfapplyendtime, userid, wfcsrn)
+		values('승인', #{wfapplystartdate}, #{wfapplyenddate}, #{wfapplystarttime},
+		#{wfapplyendtime}, #{userid},
+		#{wfcsrn})
+	
+	</insert>
+
+	<update id="editWorkingHour" parameterType="WorkingHour">
+		update workinghour
+		set whgotime=#{whgotime},
+		whleavetime=#{whleavetime}
+		where
+		userid=#{userid} and whdate=#{whdate}
+	</update>
+
+<!-- select wfsrn from workflow where userid=${userid} and wfcsrn=4 order by wfsrn desc limit 1 -->
+
+	<insert id="insertOriginWH" parameterType="java.util.HashMap">
+insert into originworkinghour (whsrn, origingotime, originleavetime) values (
+(select whsrn from workinghour where userid=#{userid} and whdate=#{whdate}),
+(select whgotime from workinghour where userid=#{userid} and whdate=#{whdate}),
+(select whleavetime from workinghour where userid=#{userid} and whdate=#{whdate}))
+	</insert>
+
+	<select id="totalDayOff" parameterType="string" resultType="int">
+		select positiondayoff from position p where
+		positionno=(select
+		category_positionno from user where
+		userid=#{userid})
+	</select>
+
+	<select id="useDayOffSum" parameterType="java.util.HashMap"
+		resultType="int">
+		select ifnull(sum(duse), 0)`duse` from dayoff where wfsrn in (select wfsrn
+		from workflow
+		where userid=#{userid} and wfcsrn != 4 and wfstatus='승인')
+	</select>
+
+	<select id="useDayOffDate" parameterType="string"
+		resultType="int">
+		select duse from dayoff where wfsrn in (select wfsrn from
+		workflow where
+		userid=#{userid} and wfcsrn != 4 and wfstatus='승인');
+	</select>
+
+	<select id="selectName" parameterType="string"
+		resultType="GroupUserInfo">
+		select username, userid from user u where u.userid in
+		(select uid from invitemember where cno=1 and iaccept='수락' and pgsrn = (select groupno
+		from
+		sgroup where summer_user_userid=#{summer_user_userid}));
+	</select>
+
+	<select id="groupUseDayOff" parameterType="java.util.HashMap"
+		resultType="Dayoff">
+		select duse from dayoff where wfsrn in (select wfsrn from
+		workflow where
+		wfcsrn != 4 and userid in (select uid from invitemember
+		where
+		pgsrn=(select
+		groupno from sgroup where
+		summer_user_userid=#{summer_user_userid}) and
+		cno=1)
+		and
+		wfapplystartdate &gt;= #{wfapplystartdate} and wfapplyenddate &lt;=
+		#{wfapplyenddate});
+	</select>
+
+	<!-- 휴가 전자결재 날자 -->
+	<select id="selectWfapplyDate" parameterType="string"
+		resultType="WorkflowDate">
+		select wfcsrn, wfapplystartdate, wfapplyenddate,
+		substr(wfapplystartdate,6,
+		2)`wfapplystartmonth`,
+		substr(wfapplyenddate, 6,2)`wfapplyendmonth`,
+		substr(wfapplystartdate,
+		9,2)`wfapplystartday`, substr(wfapplyenddate,
+		9,2)`wfapplyendday` from
+		workflow where userid=#{userid} and wfcsrn !=
+		4
+		and wfstatus='승인' order
+		by wfapplystartdate;
+	</select>
+
+	<!-- 휴가 전자결재 날짜차이 -->
+	<select id="dateDiff" parameterType="string" resultType="int">
+		select
+		datediff(wfapplyenddate,wfapplystartdate) from workflow where
+		userid=#{userid} and wfcsrn != 4 and wfstatus='승인'
+	</select>
+	
+	<select id="selectwfsrn" parameterType="string" resultType="int">
+	select wfsrn from workflow where userid=#{userid} and wfcsrn != 4 order by wfsrn desc limit 1;
+	</select>
+
+	<select id="selectdateDiff" parameterType="Workflow"
+		resultType="Integer">
+		select
+		datediff(wfapplyenddate,wfapplystartdate) from
+		workflow where
+		userid=#{userid} and wfcsrn != 4 and wfstatus='승인'and
+		wfsrn=#{wfsrn}
+	</select>
+
+	<insert id="insertDayOff" parameterType="Workflow">
+		insert into dayoff
+		(duse, wfsrn, positionno) values(
+		(select wfctime from workflowcategory
+		where wfcsrn=(select wfcsrn from workflow where wfstatus='승인'
+		and
+		wfcsrn!=4 and userid=#{userid} order by wfdate desc limit 1)),
+		(select
+		wfsrn from workflow where wfstatus='승인' and wfcsrn!=4 and
+		userid=#{userid} order by wfdate desc limit 1),
+		(select positionno from
+		position p where positionno=(select
+		category_positionno from user where
+		userid=#{userid}))
+		);
+	</insert>
+
+	<select id="listWorkflow" parameterType="string"
+		resultType="Workflow">
+		select * from workflow where userid=#{userid} order by
+		wfdate desc
+	</select>
+
+	<select id="detailWorkflow" parameterType="Workflow"
+		resultType="Workflow">
+		select * from workflow where wfsrn=#{wfsrn};
+	</select>
+
+	<select id="workflowcategoryView" parameterType="int"
+		resultType="WorkflowCategory">
+		select * from workflowcategory where wfcsrn=${wfcsrn}
+	</select>
+
+	<select id="groupname" parameterType="string"
+		resultType="string">
+		select groupname from sgroup where
+		summer_user_userid=#{summer_user_userid}
+	</select>
+
+	<select id="groupLeaderId" resultType="string">
+		select summer_user_userid from sgroup
+	</select>
+	
+	<select id="groupId" resultType="string">
+		select uid from invitemember where cno=1;
+	</select>
+
+	<delete id="deleteWorkflow" parameterType="Workflow">
+		delete from workflow
+		where userid=#{userid} and wfsrn=#{wfsrn} and wfstatus='진행중'
+	</delete>
+
+	<select id="groupWorkflow" parameterType="string"
+		resultType="Workflow">
+		select * from workflow where userid in (select uid from
+		invitemember where
+		pgsrn=(select groupno from sgroup where
+		summer_user_userid=#{summer_user_userid})
+		and cno=1) order by wfsrn
+		desc;
+	</select>
+
+	<select id="groupWorkingHour" parameterType="java.util.HashMap"
+		resultType="GroupWorkingHour">
+		select u.userid, username, whdate, whgotime, whleavetime from user u left outer join
+(select distinct userid, whdate, whgotime, whleavetime from workinghour
+where whdate=${whdate} and userid in (select uid from invitemember where pgsrn=(select groupno from
+sgroup where summer_user_userid=#{summer_user_userid}) and cno=1))wh on u.userid = wh.userid;
+	</select>
+
+	<update id="acceptworkflow" parameterType="Workflow">
+		update workflow set
+		wfstatus='승인' where userid=#{userid} and wfsrn=#{wfsrn}
+	</update>
+
+	<update id="rejectworkflow" parameterType="Workflow">
+		update workflow set
+		wfstatus='반려' where userid=#{userid} and wfsrn=#{wfsrn}
+	</update>
+
+</mapper>

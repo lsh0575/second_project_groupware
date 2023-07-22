@@ -1,0 +1,465 @@
+@charset "UTF-8";
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+html {
+	position: relative;
+	min-height : 100%;
+	font-family : 'Nanum Gothic';
+}
+
+body {
+	margin : 0;
+	padding-bottom: 227px;
+}
+
+/*나형  */
+#header .myhidden {
+   width : 1px;
+   height: 1px;
+   position: absolute;
+   overflow: hidden;
+   left: -9999999%;
+   font-size: 0;
+   line-height: 0;
+}
+a.navbar-brand.logodesign {
+    color: white;
+    font-size: 35px;
+    padding: 39px 15px;
+}
+
+nav.navbar.navbar-inverse.hback {
+   /* 수정 2023-07-11 헤더 상단 좌우 상단 라운드 없애기 */
+   border-radius: 0;
+   /* 수정 2023-07-11 */
+    background-color: black;
+}
+.nhpanel {
+    border-right: 1px solid #ddd;
+    height: 600px;
+}
+.nhfont_grey {
+   color  : lightgrey;
+}
+strong.nhfontbig {
+    font-size: xx-large;
+}
+p.project_state.nhfont_green{
+   color: green;
+    font-weight: bold;
+}
+tbody td.nhfont_green small {
+    color: darkgreen;
+    font-weight: bold;
+}
+tbody#tableTD td {
+    height: 150px;
+    width : 14%;
+}
+table#mytable {
+    font-size: 19px;
+}
+.nhcalendaricon img{
+    width: 57px;
+}
+p#nhschedule_margin {
+    font-size: 13px;
+}
+td p span#schedule {
+ /*    font-size: 19px;
+  */   display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    line-height: 1.2;
+    text-align: left;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 3 ;
+    -webkit-box-orient: vertical;
+    
+}
+p#nhschedule_margin {
+    margin-top: 8%;
+    background: #daeaff77;
+    padding: 3%;
+}
+p.project_state span#projectschedule {
+    font-weight: bold;
+    margin-left: 82%;
+    color: black;
+}
+#inviteModal a#nh_imgsize img {
+    width: 26px;
+}
+span#nh_fontbold {
+    font-weight: bold;
+    color: #0e479f;
+}
+h3#h3bold {
+    font-weight: bolder;
+}
+p.nhcalendaricon.text-center {
+    font-size: 35px;
+}
+.mtotal.total_background {
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+.calendarmtotal.total_background {
+    margin: 0px 10%;
+}
+small#today {
+    font-size: 13px;
+    color: #f00;
+    font-family: emoji;
+    font-weight: bold;
+}
+/*나형  */
+
+/*나형  */
+
+/* 혜은 */
+#footer {
+    background-color: black;
+    color: #c0c0c0;
+    position : absolute;
+   	bottom : 0;
+   	/* 수정 2023-07-11 footer와 weather 사이즈 조절 */
+   	width: 1918px;
+   	/* 수정 2023-07-11 */
+   	height : 229px;
+}
+
+div.fcontext {
+    font-size: 15px;
+    text-align: center;
+    margin-bottom: 50px;
+    padding-top: 50px;
+    margin-left: 50%;
+    width: 50%;
+}
+
+.myclarboth.text-center.flast {
+    padding-bottom: 50px;
+    margin-left: 50%;
+}
+
+.bottomline {
+	border: 1px solid #eee;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+.workingcheck {
+	width: 750px;
+	height: 200px;
+}
+.leftspace {
+padding-left: 10px;
+font-size: 20px;
+}
+
+.actfont{
+	font-size: 25px;
+}
+
+div#today {
+    padding-top: 70px;
+    text-align: center;
+}
+
+.topspace {
+	font-weight: bold;
+	padding-top: 40px;
+	padding-left: 25px;
+	font-size: 20px;
+}
+
+caption#currentmonth {
+    font-size: 15px;
+}
+
+.btnspace {
+	margin-top: 20px;
+	position: absolute;
+}
+
+div#gotime, div#leavetime {
+    margint-left: 15px;
+    font-size: 15px;
+    color: blue;
+    padding-top: 25px;
+    padding-left:10px;
+}
+
+button.workflowpopup {
+	background-color: white;
+	border: 0;
+	padding-top: 0px;
+}
+
+.workflowcheck {
+	width: 400px;
+	height: 400px;
+	border-radius: 5px;
+	margin-left: 200px;
+	padding-top: 30px;
+}
+
+div.lastworkflow {
+	background-color: #eee;
+	border: 10px solid white;
+	margin-top: 50px;
+	border-radius: 5px;
+	height: 150px;
+	padding-top: 35px;
+}
+
+.col-sm-4.vacationcheck.bottomline.topspace {
+    height: 200px;
+    text-align: center;
+}
+
+p.btnright {
+	text-align:right;
+}
+
+img.imgsize {
+	width: 25px;
+}
+
+div.checktop {
+	    display:flex;
+    flex-wrap:wrap;
+    align-items:flex-start;
+    margin:30px 0;
+}
+
+div#yesterday {
+    margin: 0px 15px;
+}
+
+.popupborder {
+	border: 2px solid #ccefc0;
+	text-align: center;
+	height: 150px;
+	margin-top:50px;
+	margin-bottom:100px;
+}
+
+.popupfont {
+	font-size: 20px;
+}
+
+label.leftspacename {
+	margin-left: 30px;
+}
+
+input#workflowname, input#usetime, input#wcontent {
+    border-radius: 5px;
+    width: 600px;
+}
+
+div.formbtn {
+	text-align:right;
+}
+
+th.tcenter, td.tcenter {
+	text-align: center;
+}
+
+.modalsize {
+	height: 500px;
+}
+
+.textspace {
+    margin-top: 20px;
+    position: absolute;
+    margin-left: 25px;
+}
+
+div#workinghour, div#workinghour1 {
+    margin-top: 40px;
+    margin-left: 30px;
+}
+
+div#date {
+    margin-left: 13px;
+}
+
+.mtotal {
+	margin: 0px 100px;
+}
+
+/* Dropdown Button */
+.dropbtnwh {
+    padding: 12px;
+    margin-left: 15px;
+    font-size: 15px;
+    border: none;
+    border-radius: 10px;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdownwh {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdownwh:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdownwh:hover .dropbtn {background-color: #3e8e41;}
+
+.dayofftop {
+	margin-top: 20px;
+}
+
+ .topspace2 {
+	padding-top: 65px;
+} 
+
+.dayoffcolor {
+	color: blue;
+}
+
+.dayoffcolor2 {
+	color: red;
+}
+
+.wffontsize {
+font-size: 15px;
+}
+
+.glyphicon-list-alt, .glyphicon-tasks, .glyphicon-pencil, .glyphicon-folder-open, .glyphicon-user, .glyphicon-calendar {
+	color: #797979;
+	font-size:50px;
+}
+
+.maintext {
+	font-size: 20px;
+}
+
+.cmain {
+	     margin: 100px 50px;
+}
+
+.mfont {
+	font-size: 40px;
+    font-weight: bold;
+}
+
+.newsbord {
+	border: 3px solid white;
+    border-radius: 20px;
+    padding: 30px;
+    background-color: #eee;
+}
+
+.imgs {
+	width: 80%;
+	height: 80%;
+}
+
+.imgs2 {
+	margin-bottom: 60px;
+}
+
+.headersize {
+	height: 100px;
+}
+
+.fsize {
+	    font-size: 20px;
+    margin-top: 23px;
+    color: white;
+}
+
+.newsfont {
+	font-size: 30px;
+	font-weight: bold;
+	text-align : left;
+}
+
+.newsspace {
+	    margin: 20px 0px;
+}
+
+button {
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 15px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 80ms ease-in;
+}
+
+.overlay_btn {
+    background-color: gray;
+    color: #fff;
+}
+
+.overlay_btn2 {
+	background-color: #ebecf0;
+	color: black;
+}
+
+/*혜은 */
+
+/*성현*/
+/* 수정 2023-07-11 뉴스 삽입 후 What We Do 삭제 */
+/* .mfont { font-size: 40px; font-weight: bold; } */
+/* 수정 2023-07-11 뉴스 삽입 후 What We Do 삭제 */
+
+/*혜은 */
+
+/*성현*/
+/* 수정 2023-07-11 footer와 weather 사이즈 조절2 */
+.weatherTitle       		 { background-color: black; padding: 30px; color: #fff; height: 229px; width: 500px; }
+/* 수정 2023-07-11 footer와 weather 사이즈 조절2 */
+.weather_icon       		 { margin: 0; padding: 0; width: 390px; text-align: right; }
+.weatherContent    			 { float: right; margin: -5px 0px 0px 60px; font-size: 10px }
+.current_temp        		 { font-size: 30px }
+.weather_description 		 { font-size: 20px }
+.city              			 { font-size: 10px }
+.weatherInfo        		 { float: right; margin-top: -18px; }
+/* 수정 2023-07-11 로그인 후 메인화면 sh class명 삽입 */
+span.sh.glyphicon 			 { font-size: 50px; }
+/* 수정 2023-07-11 로그인 후 메인화면 sh class명 삽입 */
+/* 수정 2023-07-11 뉴스 상단에 마우스 호버 효과 */
+a.sh.news-title { cursor: pointer; font-size: 20px; font-weight: bold; }
+a.sh.news-title:hover { font-size: 20px; }
+/* 수정 2023-07-11 뉴스 상단에 마우스 호버 효과 */
+.row.myPageBtn 	  	 		 { margin-top: 3%; margin-bottom: 3%; }
+.row.groupDetailBtn  		 { margin-bottom: 5%; }
+.row.beforeLoginBtn 		 { margin-bottom: 2%; }
+.sh_blogin   .loginBtn 		 { height: 80px; }
+
+/*성현*/

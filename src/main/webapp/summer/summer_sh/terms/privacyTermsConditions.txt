@@ -1,0 +1,127 @@
+Privacy Policy
+
+The DOCL team values the personal information of the users of ‘COVID-19 CheckUp’ and complies with privacy regulations provided under relevant statutes such as the Personal Information Protection Act, etc. The DOCL team notifies the privacy policy through the application screen or webpage (hereinafter referred to as “application screen, etc.”) that provides COVID-19 CheckUp service (hereinafter referred to as “service”). When revising the privacy policy, it notifies the reason and details of the change through the application screen and etc. accordingly with the procedures prescribed by the relevant statutes.
+
+Information to be collected and method of collection
+The DOCL team collects the minimum amount of personal information necessary for the provision of service. 
+
+Personal information items to be collected
+COVID-19 CheckUp Service – when signing up
+Mandatory: Email address, password 
+COVID-19 CheckUp Service – when using and processing service
+Mandatory: Identified gender or sexual orientation, date of birth, previous/current medical history, smoking status, height, weight, degree of disability, self-quarantine status, COVID-19 testing status(COVID-19 확진 검사 여부), history of close contact with confirmed cases of COVID-19, body temperature and other symptoms
+Method of Collection
+The DOCL project team collects the information of users in a way of the followings:
+
+Provided by the users through DOCL project application, webpage
+Provided by partner companies
+Purposes of collection and usage of information
+The project team uses the collected information in a way of the followings:
+
+Member management and service provision
+Member management and identification for entering, performing and terminating the contract concerning service provision
+Archival of records for user communication service and any possible dispute settlements
+Making notice of function of project or matters on service or policy change
+Detecting and deterring unauthorized or fraudulent use of abuse of the Service
+Improvement of existing services and development of new services
+Development of new services and provision of personalized services through data collection of service usage
+COVID-19 investigation purpose of information usage and sharing
+Disclosure of information to third-party
+DOCL project team utilizes personal information under the scope mentioned in section 2 Purposes of collection and usage of information. In principle, we don’t disclose information to third parties without a legal basis or prior consent of the users.
+
+Period for retention and use of personal information
+In principle, the DOCL team destroys the information without delay when the purpose of collecting and using personal information agree by the user is achieved. However, if it is considered necessary to preserve the information according to internal policies or provisions of the relevant statutes, the project team shall keep the user’s personal information for the following periods.
+
+Collected information when signing up
+1. preservation basis: consent of the information subject
+
+             2. period of preservation: immediately deleted once withdrawn from membership
+
+Collected information during service usage and processing
+1. preservation basis: consent of the information subject
+
+             2. period of preservation: immediately deleted once withdrawn from membership
+
+Collected data on service access and usage
+1. preservation basis: Protection of Communications Secrets Act
+
+             2. period of preservation: 3 months
+
+Collected data on the user’s location
+1. preservation basis: Act on the Protection, Use, Etc. of Location Information
+
+          2. period of preservation: 6 months
+
+5. Procedure and method of destruction of personal information
+
+In principle, the project team destructs the information once the purpose of information collection and use have been achieved. The procedures and methods of destruction are as follows:
+
+Procedure of destruction
+The information given by the user when joining the DOCL service is transferred to a separate database (separate filing boxes for hard copy information) after the purpose of collection and usage has been achieved. It is destructed after being saved for a certain period as stated in Article 4 according to the DOCL team’s policy and other reasons for information protection under the relevant statutes. Personal information transferred to a separate DB shall not be used for any purpose other than possession except by law or user consent.
+
+Method of destruction
+Personal information printed on paper is shredded or destroyed through incineration. Personal information stored in an electronic file format is deleted using a technical method that cannot renew the deleted information.
+
+Rights of users & legal representatives and methods of exercise thereof
+① Users and legal representatives can view or update personal information of themselves or children under the age of 14 at any time, and revoke their consent for the collection, use, and provision of personal information as a method of termination of membership (withdrawal from membership). However, since the project team collects and uses only the essential information necessary for the service, it is impossible to withdraw only parts of the consent.
+
+② If the user wants to cancel the subscription, one can contact the customer center or the Chief privacy officer in written document, telephone, or e-mail, and we will take action without delay.
+
+③  If the user wants to view or receive information on the current status of consent for the collection, use, and provision of personal information, personal information collected through consent, use of the personal information, and the status of provision to a third party, he/she can contact the Chief privacy officer and the project team will take action immediately.
+
+④ When a user requests the correction of errors in his/her personal information, the relevant personal information will not be used or provided to a third party until the correction is made. If any incorrect information has already been provided to a third party, the corrected information will be immediately notified to the third party without delay as to ensure that the necessary correction is made.
+
+⑤ The project team shall treat personal information that has been terminated or deleted at the request of the user or legal representative, as specified in Article 4 (Period of Retention and Use of Personal information). We shall not view or use the information for any other purposes.
+
+Matters concerning the installation/operation of an automatic personal information collection Device
+and the rejection thereof
+
+When a user accesses the application screen of this service, the DOCL team uses ‘cookies’ that frequently save and retrieve user’s information to provide personalized and customized services. A cookie is a very small text file that the server, used to operate the project team’s website, sends it to a user’s browser. It is saved in the hard disk of the user’s computer or other access media (including mobile devices such as smartphones and tablet PCs). The DOCL team uses cookies for the following purposes, and you may refuse to use them through settings.
+
+① Purpose of cookies usage
+
+The DOCL team stores the cookies to save user’s login information and increase user convenience by enabling automatic login. We do not store cookies for any other purpose.
+
+② Methods to refuse cookies usage
+
+Users reserve the right to choose whether to install cookies. If the user chooses not to save his/her login information, cookies are not used
+
+8. Technical/administrative measures to protect personal information
+
+To prevent personal information from being lost, stolen, leaked, altered or damaged and ensure safety when handling the personal information of information principals, DOCL team takes the following technical/administrative measures:
+
+① Encryption of personal information
+
+The DOCL team encrypts and stores all personal information items in accordance with the relevant laws and guidelines of relevant administrative agencies.
+
+② Technical measures against hacking, etc.
+
+The DOCL team is operating an intrusion prevention system to prevent leakage of and/or damage on personal information of its members by hacking servers, networks, etc.
+
+③ Minimum number of handling personnel and provision of training
+
+The DOCL team strictly limits employees handing personal information to those who manage personal information. We also provide regular education for employees on the importance of security. Moreover, we monitor compliance with personal information protection policy and of personnel in charge, and if related problems are detected, the project team provides efforts to immediately take corrective measures.
+
+9. Contact information of chief privacy officer and administrators
+
+The DOCL team has the chief privacy officer and the manger to protect the personal information of the users and deal with complaints related the personal information. The DOCL team will provide prompt and sufficient answers to your reports.
+
+① Chief privacy officer & Manager
+
+– Chief privacy officer: JoonNyung Heo
+
+– Manage: JoonNyung Heo
+
+-Contact info: +82)-10-4216-3015
+
+-E-mail: jnheo@docl.org
+
+10. Coverage
+
+This Privacy Policy applies to the ‘COVID-19 Checkup’ provided by the DOCL team, and separate privacy policy may apply to other services of the DOCL team.
+
+11. Duty of notification
+
+When there is an addition, a deletion, or a correction of the content of the current Privacy Policy, the project team will inform the service users through the ‘Notification’ on the application screen (7) days before the implementation of such changes. However, if personal information collection, use, and provision to a third party are changed against the users, we will notify them at least 30 days in advance.
+
+– Effective date: May 3rd, 2020

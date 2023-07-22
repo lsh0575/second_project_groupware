@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation"
+			value="classpath:/config/mybatis-config.xml" />
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:/config/he-mapper.xml</value>
+					<value>classpath:/config/sh-mapper.xml</value>
+					<value>classpath:config/nh-mapper.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+	<!-- <bean id="testMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"> 
+		<property name="mapperInterface" value="com.company.dao.TestMapper"></property> 
+		<property name="sqlSessionTemplate" ref="sqlSession"></property> </bean> -->
+
+	<!-- <bean id="testDao" class="org.mybatis.spring.mapper.MapperFactoryBean"> 
+		<property name="mapperInterface" value="com.company.dao.TestDao"></property> 
+		<property name="sqlSessionTemplate" ref="sqlSession"></property> </bean> -->
+
+	<!-- <bean id="userDao" class="org.mybatis.spring.mapper.MapperFactoryBean"> 
+		<property name="mapperInterface" value="com.company.dao.UserDao"></property> 
+		<property name="sqlSessionTemplate" ref="sqlSession"></property> </bean> -->
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.summer.dao" />
+		<property name="annotationClass"
+			value="com.summer.dao.SummerMapper" />
+	</bean>
+
+	<context:component-scan
+		base-package="com.summer"></context:component-scan>
+	<context:property-placeholder
+		location="classpath:config/db.properties" />
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+		<property name="driverClass" value="${db.driverClass}"></property>
+		<property name="url" value="${db.url}"></property>
+		<property name="username" value="${db.username}"></property>
+		<property name="password" value="${db.password}"></property>
+	</bean>
+</beans>

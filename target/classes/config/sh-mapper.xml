@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.summer.dao.ShMapper">
+
+	<resultMap type="com.summer.dto.AccountVO" id="accountMap">
+		<id property="userid" column="userid" />
+		<result property="userid" column="userid" />
+		<result property="username" column="username" />
+		<result property="positionlist" column="positionlist" />
+		<result property="groupname" column="groupname" />
+		<result property="groupno" column="groupno" />
+		<result property="userphone" column="userphone" />
+		<result property="summer_user_userid" column="summer_user_userid" />
+		<collection property="imList" resultMap="imMap" />
+	</resultMap>
+	
+	<resultMap type="com.summer.dto.InviteMemberVO" id="imMap">
+	   <!-- InviteMemberVO -->
+	   <!-- <association property="accountVO" resultMap="accountMap" /> --> <!-- AccountVO의 resultMap 참조 -->
+		<result property="uid" column="uid" />
+		<result property="iaccept" column="iaccept" />
+		<result property="idate" column="idate" />
+		<result property="pgsrn" column="pgsrn" />
+	</resultMap>
+	
+	<!-- #을 붙히면 PreparedStatement 동적으로 할당 -->
+
+	<!-- 그룹에 속하지 않은 전체 유저 뽑기 -->
+	<select id="getNonGroupMembers" resultType="String">
+	  SELECT userid, username, useremail
+	  FROM user
+	  WHERE userid NOT IN (SELECT summer_user_userid FROM sgroup)
+	</select>
+	
+	<!-- 전체 유저 확인 -->
+	<select id="readAll" resultMap="accountMap">
+		SELECT * FROM user ORDER BY joindate
+	</select>
+
+	<!-- 조직 메인 -->
+	<select id="gmReadAll" resultType="AccountVO">
+	<![CDATA[
+		SELECT  s.groupno, s.groupdivision, u.username, p.positionlist, s.groupname, u.userphone, s.summer_user_userid, s.groupcreatedate
+		FROM sgroup s
+		JOIN user u ON s.summer_user_userid = u.userid
+		JOIN position p ON u.category_positionno = p.positionno
+		JOIN (
+		  SELECT MIN(groupcreatedate) AS min_groupcreatedate, groupname
+		  FROM sgroup
+		  GROUP BY groupname
+		) 
+		AS subquery ON s.groupname = subquery.groupname AND s.groupcreatedate = subquery.min_groupcreatedate
+		ORDER BY s.groupcreatedate, s.groupno
+	]]>
+	</select>
+
+	<!-- 사용자 상세보기 -->
+	<select id="mmdRead" parameterType="String"
+		resultType="AccountVO">
+	    SELECT username, userbirth ,userid, positionlist, usersex, useremail, userphone, userpostnum, basic_useraddr, useraddr, userprofile 
+	    FROM user 
+	    JOIN position ON user.category_positionno = position.positionno
+	    WHERE userid = #{userid}
+
+	</select>
+
+	<!-- 그룹 소속 인원 -->
+	<select id="gdRead"  resultMap="accountMap">
+	<![CDATA[
+		SELECT u.userid, p.positionlist, s.groupname, u.userphone, i.iaccept, i.idate
+		FROM invitemember i
+		JOIN user u ON i.uid = u.userid
+		JOIN position p ON u.category_positionno = p.positionno
+		JOIN sgroup s ON s.groupno = i.pgsrn
+		WHERE i.cno = 1 AND i.iaccept = '수락' 
+		AND pgsrn=(select groupno from sgroup where summer_user_userid=#{summer_user_userid})
+	]]>
+	</select>
+
+	<!-- 그룹 초대 진행 멤버 -->
+	<!-- InviteMemberVO -->
+	<select id="gdRead2" resultMap="accountMap">
+	<![CDATA[
+		SELECT u.userid, p.positionlist, s.groupname, u.userphone, i.iaccept, i.idate
+		FROM invitemember i
+		JOIN user u ON i.uid = u.userid
+		JOIN position p ON u.category_positionno = p.positionno
+		JOIN sgroup s ON s.groupno = i.pgsrn
+		WHERE i.cno = 1 AND i.iaccept = '진행' 	
+		AND pgsrn=(select groupno from sgroup where summer_user_userid=#{summer_user_userid})
+	]]>
+	</select>
+
+	<!-- 회원가입 -->
+	<insert id="uInsert" parameterType="AccountVO">
+		INSERT INTO user (userid, userpass, username, userbirth, usersex, useremail, userphone, userpostnum, basic_useraddr, useraddr, userprofile, userip, category_positionno) 
+		VALUES ( #{userid}, #{userpass}, #{username}, #{userbirth}, #{usersex}, #{useremail}, #{userphone}, #{userpostnum}, #{basic_useraddr}, #{useraddr}, #{userprofile}, #{userip}, #{category_positionno})
+	</insert>
+
+	<!-- 로그인 -->
+	<select id="loginCheck" parameterType="AccountVO"
+		resultType="int">
+        SELECT count(*)
+        FROM user
+        WHERE userid = #{userid} and userpass = #{userpass}
+	</select>
+
+	<!-- 그룹추가 -->
+	<insert id="gaInsert" parameterType="AccountVO">
+		INSERT INTO sgroup (groupname, groupdivision, summer_user_userid) 
+		VALUES (#{groupname}, #{groupdivision}, #{summer_user_userid})
+	</insert>
+
+	<!-- 아이디 중복체크 -->
+	<select id="uIdCheck" parameterType="String" resultType="int">
+		SELECT
+		count(*)
+		FROM user
+		WHERE userid=#{user_id}
+	</select>
+
+	<!-- 이메일 중복체크 -->
+	<select id="uEmailCheck" parameterType="String" resultType="int">
+		SELECT count(*)
+		FROM user
+		WHERE useremail=#{user_email}
+	</select>
+
+	<!-- 아이디 찾기 -->
+	<select id="idSearch" parameterType="String" resultType="String">
+		SELECT
+		userid
+		FROM user
+		WHERE useremail = #{id_search}
+	</select>
+
+	<!-- 비밀번호 찾기 -->
+	<select id="pwIdCheck" parameterType="map" resultType="int">
+		SELECT
+		count(*)
+		FROM user
+		WHERE userid=#{userid}
+		AND useremail=#{useremail}
+	</select>
+
+	<!-- 비밀번호 변경 -->
+	<update id="updatePw" parameterType="AccountVO">
+		UPDATE user
+		SET userpass =
+		#{userpass}
+		WHERE userid = #{userid}
+	</update>
+
+	<!-- 마이페이지 수정하기 -->
+	<update id="uUpdate">
+		UPDATE user 
+		SET userpass=#{userpass}, useremail=#{useremail}, 
+		userphone=#{userphone}, userpostnum=#{userpostnum}, 
+		basic_useraddr=#{basic_useraddr}, useraddr=#{useraddr}
+		WHERE userid=#{userid}
+	</update>
+
+	<!-- 그룹 수정 -->
+	<update id="gUpdate">
+		UPDATE sgroup
+		JOIN user ON summer_user_userid = userid
+		SET groupname = #{groupname}
+		WHERE groupno = #{groupno} AND userpass = #{userpass}
+	</update>
+
+	<!-- 마이페이지 회원 탈퇴 -->
+	<delete id="uDelete">
+		DELETE FROM user 
+		WHERE userid = #{userid} 
+		AND userpass = #{userpass}
+	</delete>
+
+	<!-- 그룹 삭제 -->
+	<delete id="gDelete">
+	    DELETE sgroup FROM sgroup
+	    JOIN user ON summer_user_userid = userid
+	    WHERE groupno = #{groupno}
+	    AND userpass = #{userpass}
+	</delete>
+
+	<select id="getPasswordFromDatabase"
+		resultType="java.lang.String">
+		SELECT userpass
+		FROM user
+		WHERE userid = #{userid}
+	</select>
+	
+<!-- 	<select id="inviteAll" parameterType="InviteMemberVO" resultType="InviteMemberVO">
+		SELECT * FROM invitemember WHERE uid=#{uid}
+	</select> -->
+
+	<!-- 멤버 초대 -->
+	<insert id="inviteInsert" parameterType="java.util.HashMap">
+      INSERT INTO invitemember (pgsrn , uid, cno) 
+      VALUES (#{pgsrn}, #{uid}, 1)
+    </insert> 
+
+	<!-- 멤버 초대 취소 -->
+	<delete id="inviteDelete">
+		DELETE FROM invitemember
+		where uid=#{uid} AND pgsrn=#{pgsrn}
+	</delete>
+	
+	<!-- 멤버 초대 수락 Invite Agree -->
+	<!-- <update id="inviteAccept">
+		UPDATE invitemember
+		SET iaccept='수락'
+		WHERE uid=#{uid}
+		AND pgsrn=#{pgsrn} AND cno=1
+	</update> -->
+
+	<!-- 멤버 초대 거절 Invite Cancle -->
+	<!-- <update id="inviteCancel">
+		UPDATE invitemember
+		SET iaccept= '거절'
+		WHERE uid=#{uid}
+		AND pgsrn=#{pgsrn} AND cno=1
+	</update> -->
+	
+	
+</mapper>
